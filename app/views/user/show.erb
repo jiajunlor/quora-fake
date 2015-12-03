@@ -1,0 +1,20 @@
+<h2>MY PROFILE</h2><br>
+
+Full Name: <%= @user.full_name %><br>
+Username: <%= @user.username %><br>
+Email: <%= @user.email %><br>
+Bio: <%= @user.bio %><br>
+
+MY QUESTIONS<br>
+<% if Question.all == nil %>
+	You have not asked a question
+<% else %>
+	<% questions = Question.where("user_id= #{@user.id}") %>
+	<% questions.each do |question| %>
+	<a href="/question/<%=question.id%>/single">question.text</a><br>
+	<%end%>
+<% end %>
+<%if session[:user_id] == @user.id%>
+	<a href="/users/<%= @user.id %>/update"><button>Edit Profile</button></a>
+<%end%>
+
