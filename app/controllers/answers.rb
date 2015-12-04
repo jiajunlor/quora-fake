@@ -1,35 +1,21 @@
-get "/questions/new" do
-	@user = User.find(session[:user_id])
-	erb :"question/form"
+post "/answers" do
+	@answer = Answer.create(user_id: session[:user_id], question_id: params[:question_id], content:params[:content])
+	redirect "/questions/#{params[:question_id]}/single"
 end
 
-post "/questions" do
-	@question = Question.create(user_id: session[:user_id], text:params[:text])
-	redirect "/users/#{session[:user_id]}"
+get '/answers/:id/update' do
+	@answer = Answer.find(params[:id])
+	erb :'answer/edit'
 end
 
-get "/questions" do
-	erb :"question/all"
-end
-
-get "/questions/:id/single" do
-	@question = Question.find(params[:id])
-	erb :"question/single"
-end
-
-get '/questions/:id/update' do
-	@question = Question.find(params[:id])
-	erb :'question/edit'
-end
-
-patch '/questions/:id' do
-	question = Question.find(params[:id])
-	question.update(text: params[:text])
+patch '/answers/:id' do
+	answer = Answer.find(params[:id])
+	answer.update(content: params[:content])
 	redirect "/questions/#{params[:id]}/single"
 end
 
-delete '/questions/:id' do
-	question = Question.find(params[:id])
-	question.destroy
-	redirect "/users/#{session[:user_id]}"
+delete '/answers/:id' do
+	answer = Answer.find(params[:id])
+	answer.destroy
+	redirect "/questions/#{params[:question_id]}/single"
 end

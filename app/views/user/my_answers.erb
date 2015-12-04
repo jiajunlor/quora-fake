@@ -1,0 +1,13 @@
+My Answers
+<% if Answer.where("user_id= #{session[:user_id]}") == nil %>
+	No Answers by <%=@user.username%>
+<% else %>
+	<% answers = Answer.where("user_id= #{session[:user_id]}") %>
+	<% answers.each do |answer| %>
+	<h1><%=answer.question.text%>by <%=answer.question.user.username%></h1><br>
+	<h3><%=answer.content%></h3>by <%=answer.user.username%><br>
+		<%if session[:user_id] == answer.user.id%>
+			<a href="/answers/<%= answer.id %>/update"><button>Edit Answer</button></a>
+    	<%end%>
+	<%end%>
+<%end%>

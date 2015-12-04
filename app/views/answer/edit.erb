@@ -1,0 +1,12 @@
+<form class="editans" action="/answers/<%=@answer.id%>" method="POST">
+	<input type="hidden" name="_method" value="patch">
+	<label>Your Answer: </label>
+	<textarea name="content"><%= @answer.content%></textarea><br>
+	<input type="submit" value="Update">
+</form>
+
+<form class="delete" action="/answers/<%=@answer.id%>" method="POST">
+	<input type="hidden" name="_method" value="delete">
+	<input type="hidden" name="question_id" value=<%=@answer.question.id%>>
+	<input type="submit" value="Delete Answer">
+</form>

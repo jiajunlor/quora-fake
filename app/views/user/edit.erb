@@ -1,10 +1,8 @@
 <% if @user.errors.any? %>
-	<% @user.errors.full_message.each do |message|%>
+	<% @user.errors.full_messages.each do |message|%>
 		<%= message%><br>
 	<%end%>	
 <% end %><br>
-
-<%= @error if @error %><br>
 
 <form class="editprof" action="/users/<%=@user.id%>" method="POST">
 	<input type="hidden" name="_method" value="patch">
@@ -16,18 +14,12 @@
 	<input type="text" name="username" value="<%=@user.username%>"><br>
 	<label>Bio: </label>
 	<input type="text" name="bio" value="<%=@user.bio%>"><br>
-	<label>Current Password: </label>
-	<input type="password" name="password" value="<%=@user.password%>"><br>
-	<label>Confirm Current Password: </label>
-	<input type="password" name="password_confirmation" value="<%=@user.password%>"><br>
-	<label>New Password: </label>
-	<input type="password" name="newpassword" value="<%=@user.password%>"><br>
-	<label>Confirm New Password: </label>
-	<input type="password" name="newpassword_confirmation" value="<%=@user.password%>"><br>	
 	<input type="submit" value="Update">
 </form>
 
-<form class="delete" action="/users/<%=@user.id%>" method="POST">
+<a href="/users/<%= @user.id %>/passwordchange/">change your password</a>
+
+<form class="delete" action="/users/<%=@user.id%>/delete" method="POST">
 	<input type="hidden" name="_method" value="delete">
 	<input type="submit" value="Delete">
 </form>

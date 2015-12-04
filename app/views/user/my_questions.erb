@@ -1,0 +1,12 @@
+MY QUESTIONS<br>
+<% if Question.where("user_id= #{@user.id}") == nil %>
+	No Questions by <%=@user.username%>
+<% else %>
+	<% questions = Question.where("user_id= #{@user.id}") %>
+	<% questions.each do |question| %>
+	<a href="/questions/<%=question.id%>/single"><%=question.text%></a><br>
+		<%if session[:user_id] == question.user.id%>
+		<a href="/questions/<%= question.id %>/update"><button>Edit Question</button></a>
+	<%end%>
+	<%end%>
+<% end %>

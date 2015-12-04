@@ -31,5 +31,6 @@ end
 delete '/questions/:id' do
 	question = Question.find(params[:id])
 	question.destroy
+	question.answers.destroy_all
 	redirect "/users/#{session[:user_id]}"
 end

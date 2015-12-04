@@ -5,15 +5,8 @@ Username: <%= @user.username %><br>
 Email: <%= @user.email %><br>
 Bio: <%= @user.bio %><br>
 
-MY QUESTIONS<br>
-<% if Question.all == nil %>
-	You have not asked a question
-<% else %>
-	<% questions = Question.where("user_id= #{@user.id}") %>
-	<% questions.each do |question| %>
-	<a href="/questions/<%=question.id%>/single"><%=question.text%></a><br>
-	<%end%>
-<% end %>
+<a href="/users/<%=session[:user_id]%>/my_questions">My Questions</a><br>
+<a href="/users/<%=session[:user_id]%>/my_answers">My Answers</a><br>
 <%if session[:user_id] == @user.id%>
 	<a href="/users/<%= @user.id %>/update/"><button>Edit Profile</button></a>
 <%end%>

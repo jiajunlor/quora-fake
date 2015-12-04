@@ -4,4 +4,24 @@
 	<a href="/questions/<%= @question.id %>/update"><button>Edit Question</button></a>
 <%end%>
 
-<h2>Answer</h2>
+
+<form action="/answers" method="POST">
+	<label>Your Answer :</label><br>
+	<textarea name="content"></textarea>
+	<input type="hidden" name="question_id" value=<%=@question.id%>>
+	<input type="submit" value="Submit">
+</form>
+
+<h2>Answers</h2>
+<% if Answer.where("question_id= #{@question.id}") == nil %>
+	No Answers Yet
+<% else %>
+	<% answers = Answer.where("question_id= #{@question.id}") %>
+	<% answers.each do |answer| %>
+	<% user = User.find(answer.user_id)%>
+	<h3><%=answer.content%></h3>by <%=user.username%><br>
+		<%if session[:user_id] == answer.user.id%>
+			<a href="/answers/<%= answer.id %>/update"><button>Edit Answer</button></a>
+    	<%end%>
+	<%end%>
+<%end%>
