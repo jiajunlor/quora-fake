@@ -32,15 +32,28 @@ post "/users/new" do
 	end
 end
 
-get '/users/:id/update' do
+get '/users/:id/update/' do
 	@user = User.find(params[:id])
+	if params[:error]
+		@error = params[:error]
+	end
 	erb :'user/edit'
 end
 
 patch '/users/:id' do
-	user = User.find(params[:id])
-	user.update(full_name: params[:full_name], email: params[:email], username: params[:username], password: params[:password], bio: params[:bio])
-	redirect "/users/#{user.id}"
+	@user = User.find(params[:id])
+	@user.update(full_name: params[:full_name], email: params[:email], username: params[:username], bio: params[:bio])
+
+	if params[:password]
+		if @user.authenticate(params[:password])
+			@user.update(password: params[:newpassword], password_confirmation: params[:newpassword_confirmation])
+		else
+			@error = "Wrong current password"
+			redirect "/users/#{session[:user_id]}/update/?error=#{@error}"
+		end
+	end
+	
+	redirect "/users/#{@user.id}"
 end
 
 delete '/users/:id' do

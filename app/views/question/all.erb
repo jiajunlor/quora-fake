@@ -1,3 +1,3 @@
 <% Question.all.each do |question|%>
-		<a href="/questions/<%=question.id%>/single"><%=question.text%></a> by <a href="/users/<%=question.user.id%>"><%=question.user.username%></a><br>
+		<h1><a href="/questions/<%=question.id%>/single"><%=question.text%></a></h1> by <a href="/users/<%=question.user.id%>"><%=question.user.username%></a><br>
 	<%end%>	

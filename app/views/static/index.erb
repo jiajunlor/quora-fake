@@ -6,7 +6,7 @@
 	<%end%>	
 <% end %><br>
 
-<%= @error = @error %><br>
+<%= @error if @error %><br>
 
 Login
 <form class="login" action="/users/login" method="POST">

@@ -1,1 +1,7 @@
-<h1><%=@question.text%></h1>by <%=@question.user.username%>
+<h1><%=@question.text%></h1>by <%=@question.user.username%><br>
+
+<%if session[:user_id] == @question.user.id%>
+	<a href="/questions/<%= @question.id %>/update"><button>Edit Question</button></a>
+<%end%>
+
+<h2>Answer</h2>

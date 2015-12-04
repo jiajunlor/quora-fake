@@ -11,10 +11,10 @@ MY QUESTIONS<br>
 <% else %>
 	<% questions = Question.where("user_id= #{@user.id}") %>
 	<% questions.each do |question| %>
-	<a href="/question/<%=question.id%>/single">question.text</a><br>
+	<a href="/questions/<%=question.id%>/single"><%=question.text%></a><br>
 	<%end%>
 <% end %>
 <%if session[:user_id] == @user.id%>
-	<a href="/users/<%= @user.id %>/update"><button>Edit Profile</button></a>
+	<a href="/users/<%= @user.id %>/update/"><button>Edit Profile</button></a>
 <%end%>
 
